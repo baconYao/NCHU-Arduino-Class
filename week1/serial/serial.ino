@@ -26,7 +26,7 @@ void loop() {
   Serial.println("Hello World, My name is baconYao");
   Serial.println("You can input some messages here:");
   //delay(5000);
-
+  //return buffer size < 64 Bytes
   if(Serial.available() > 0)
   { 
   	char tmp = Serial.read();
