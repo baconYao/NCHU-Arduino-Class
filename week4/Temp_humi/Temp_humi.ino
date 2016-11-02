@@ -6,7 +6,7 @@
 // 須將DHT11加到lib
 #include <DHT11.h>
 
-    // 宣告溫濕度檢測器程式物件
+// 宣告溫濕度檢測器程式物件
 const byte dataPin = 2;
 
 DHT11 dht11(dataPin); 

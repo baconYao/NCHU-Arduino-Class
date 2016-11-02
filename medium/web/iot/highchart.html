@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+	<meta charset="UTF-8" http-equiv="refresh" content="5">
+
+	<title>Highcharts</title>
+		<!-- jQuery css and js -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		
+		<!--include the highcharts library-->
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+		<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+		<!-- Bootstrap css and js -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<script language="javascript">
+		$(document).ready(function(){
+			$(function () {
+				console.log("Ajax running....");
+				$.ajax({
+					url: 'database.php',				  //the script to call to get data		  
+					data: "",						//you can insert url argumnets here to pass to api.php for example "id=5&parent=6"
+					dataType: 'json',				//data format	  
+					success: function(data)		  //on recieve of reply
+					{
+						console.log(data);
+						var time = [];
+						var temp = [];
+						var humi = [];
+						//for (var i = 0, len = data.length; i < len; i++)
+						for (var i = 30, len = data.length; i >0; i--)
+						{
+							time.push(data[len-i]["time"]);
+							temp.push(parseFloat(data[len-i]["temp"]));//將每筆光敏值放入陣列val中
+							humi.push(parseFloat(data[len-i]["humi"]));//將每筆光敏值放入陣列val中
+						}
+
+						$('#container').highcharts({
+							title: {
+								text: 'Sensor data from MySQL to Highcharts',
+								x: -20 //center
+							},
+							subtitle: {
+								text: 'Temperature & Humidity',
+								x: -20
+							},
+							xAxis: {
+								title: {
+								text: 'Time'
+								},
+								categories: time,
+								labels:{
+									enabled: false,
+								}
+							},
+							yAxis: {
+								title: {
+								text: 'value'
+								},
+							},
+							series: [{
+								name: 'temperature',
+								data: temp
+							},
+							{
+								name: 'humidity',
+								data: humi
+							}]
+						});
+			  	},
+			  	error: function(xhr){
+			  		console.log("Ajax error");
+			  		console.log(xhr);
+		      }
+				});
+			});
+		});
+
+</script>
+</head>
+
+<body>
+<!-- 導航欄 -->
+	<div class="navbar navbar-inverse navbar-static-top" role="navigation">
+		<!-- 居中效果 -->
+		<div class="container">
+			<!-- 導航欄header -->
+			<div class="navbar-header">
+				<!-- 做切換按鈕-->
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<!-- bootstrap題目 -->
+				<a class="navbar-brand" href="#">Bootstrap theme</a>
+			</div>
+			 區塊元素<ul>，將內容顯示為項目清單，每一項用<li>標記
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="#about">About</a></li>
+					<li><a href="#contact">Contact</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#">Setting</a></li>
+							<li><a href="#">Logout</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div>
+	<div class="container">
+		<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+	</div>
+	
+	<div class="container">
+		<div class="footer">
+			<p>&copy; Company 2014</p>
+		</div>
+	</div>
+</body>
+</html>
