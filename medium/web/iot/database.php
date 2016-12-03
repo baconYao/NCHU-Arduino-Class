@@ -1,13 +1,13 @@
 <?php
 
   //user information
-  $host = "Server IP";
-  $user = "user";
-  $pass = "password";
+  $host = "140.120.15.26";
+  $user = "abc123";
+  $pass = "123";
 
   //database information
-  $databaseName = "information";
-  $tableName = "light";
+  $databaseName = "iot";
+  $tableName = "hw";
 
 
   //Connect to mysql database
