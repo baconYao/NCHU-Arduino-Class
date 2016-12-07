@@ -1,3 +1,8 @@
+<?php
+  // Start the session
+  require_once('startsession.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,8 +34,10 @@
                   delete locArr[locArr.length - 1];   //刪除locArr陣列的最後一個元素，即檔案名稱
                   return locArr.join("/");            //用"/"毀locArr陣列中的元素合併，傳回字串值
                 }
-                document.location.href= getDir() + "map.html";
+                document.location.href= getDir() + "map.php";
               } else {
+                console.log("!!! " + msg);
+                console.log("");
                 alert("帳號密碼錯誤");
               }
             }, //如果取得成功則執行此函數

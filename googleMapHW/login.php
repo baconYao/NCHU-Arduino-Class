@@ -1,4 +1,6 @@
 <?php
+  // Start the session
+  session_start();
 
   //user information
   $host = "140.120.13.183";
@@ -27,6 +29,11 @@
     $result = mysqli_query($con ,$query);
     mysqli_close($con);
     if (mysqli_num_rows($result) == 1) {
+      $row = mysqli_fetch_array($result);
+      
+      $_SESSION['username'] = $row['username'];
+      setcookie('username', $row['username'], time() + (60 * 60 * 24 * 1));    // expires in 1 days
+
       echo "found";
 
     } else {

@@ -1,3 +1,13 @@
+<?php
+  session_start();
+  if(!isset($_SESSION['username'])) {
+    $home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/index.php';
+    header('Location: ' . $home_url);
+    
+  }
+
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -89,7 +99,7 @@
             marker.addListener('dblclick', function(){
               // 開啟highchart圖表示
               // 要開啟的即為highchart.html，記得將地址作為參數傳過去。
-              window.open('highchart.html?add=' + data["address"].toString(), data["address"].toString(), config="height=800,width=1200");
+              window.open('highchart.php?add=' + data["address"].toString(), data["address"].toString(), config="height=800,width=1200");
             });
 
           }
